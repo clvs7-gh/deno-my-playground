@@ -1,0 +1,23 @@
+image: docker:19
+stages:
+  - build
+
+services:
+  - docker:dind
+
+before_script:
+  - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+build_jsi:
+  stage: build
+  script:
+    - export IMAGE_NAME=$CI_REGISTRY_IMAGE/jsi:$CI_COMMIT_REF_NAME
+    - docker build --pull --tag $IMAGE_NAME ./jsi
+    - docker push $IMAGE_NAME
+
+build_simple-api:
+  stage: build
+  script:
+    - export IMAGE_NAME=$CI_REGISTRY_IMAGE/simple-api:$CI_COMMIT_REF_NAME
+    - docker build --pull --tag $IMAGE_NAME ./simple-api
+    - docker push $IMAGE_NAME
