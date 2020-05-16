@@ -10,16 +10,26 @@ jobs:
         shell: bash
     steps:
     - uses: actions/checkout@v1
-    - name: Build & push
-      run: |
-        docker login docker.pkg.github.com --username ${USERNAME} --password ${PASSWORD}
-        export DIRS=("jsi" "simple-api")
-        for dir in $DIRS[@]; do
-          IMAGE_NAME=${dir}:${GITHUB_REF#refs/heads/}
-          docker build ./${dir} --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME}
-          docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME}
-        done
-      env:
-          USERNAME: ${{ secrets.GITHUB_USERNAME }}
-          PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build & Push jsi
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        repository: ${{ env.GITHUB_REPOSITORY }}/jsi
+        path: ./jsi
+        tag_with_ref: true
+        always_pull: true
+        push: true
+    - name: Build & Push simple-api
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        repository: ${{ env.GITHUB_REPOSITORY }}/simple-api
+        path: ./simple-api
+        tag_with_ref: true
+        always_pull: true
+        push: true
 
