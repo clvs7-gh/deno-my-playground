@@ -15,4 +15,7 @@ RUN set -ex && \
 COPY ./app /app
 WORKDIR /app
 
+RUN set -ex && \
+    /usr/local/bin/deno cache --unstable index.ts
+
 CMD ["launch"]
