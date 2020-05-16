@@ -11,9 +11,10 @@ const initFunc = (i: any, s: any) => {
   i.setProperty(s, 'log', i.createNativeFunction((...po: any[]) => console.log(...po.map(v => i.pseudoToNative(v)))));
 };
 const myInterpreter = new Interpreter(myCode, initFunc);
-const runner = () => {
-  if (myInterpreter.run()) {
-    setTimeout(runner, 100);
+const main = async () => {
+  while (myInterpreter.run()) {
+    await new Promise(r => setTimeout(r,100));
   }
 };
-runner();
+
+await main();
