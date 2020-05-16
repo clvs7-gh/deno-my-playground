@@ -1,7 +1,9 @@
 version: '3.8'
 services:
-  jsi:
+  simple-api:
     build: ./
+    ports:
+      - 127.0.0.1:8080:8080
     command: launch index.ts
     user: 1000:1000
     init: true
