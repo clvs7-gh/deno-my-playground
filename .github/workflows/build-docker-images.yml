@@ -1,0 +1,25 @@
+name: Build Docker Images
+on: [push]
+
+jobs:
+  build:
+    name: Build & push docker images
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build & push
+      run: |
+        docker login docker.pkg.github.com --username ${USERNAME} --password ${PASSWORD}
+        export DIRS=("jsi" "simple-api")
+        for dir in $DIRS[@]; do
+          IMAGE_NAME=${dir}:${GITHUB_REF#refs/heads/}
+          docker build ./${dir} --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME}
+          docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/${IMAGE_NAME}
+        done
+      env:
+          USERNAME: ${{ secrets.GITHUB_USERNAME }}
+          PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
