@@ -9,6 +9,11 @@ jobs:
       run:
         shell: bash
     steps:
+    - name: Get repository path
+      id: repository_path
+      run: |
+        echo ::set-output name=info::${GITHUB_REPOSITORY}
+        echo ${GITHUB_REPOSITORY}
     - uses: actions/checkout@v1
     - name: Build & Push jsi
       uses: docker/build-push-action@v1
@@ -16,7 +21,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
-        repository: ${{ env.GITHUB_REPOSITORY }}/jsi
+        repository: ${{ steps.repository_path.outputs.info }}/jsi
         path: ./jsi
         tag_with_ref: true
         always_pull: true
@@ -27,7 +32,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
         registry: docker.pkg.github.com
-        repository: ${{ env.GITHUB_REPOSITORY }}/simple-api
+        repository: ${{ steps.repository_path.outputs.info }}/simple-api
         path: ./simple-api
         tag_with_ref: true
         always_pull: true
