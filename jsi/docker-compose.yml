@@ -1,7 +1,8 @@
 version: '3.8'
 services:
   jsi:
+    image: registry.gitlab.com/clvs7/deno-my-playground/jsi:latest
     #image: docker.pkg.github.com/clvs7-gh/deno-my-playground/jsi:latest
-    build: ./
+    #build: ./
     user: 1000:1000
     init: true
