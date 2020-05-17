@@ -40,34 +40,40 @@ async function prepare() {
   console.log('Ready!');
 }
 
+/** CLI **/
+
 async function interact() {
   const tpr = new TextProtoReader(new BufReader(Deno.stdin));
   const promptString = (new TextEncoder()).encode('Input postcode: ');
   console.log('='.repeat(30));
 
+  // Wait user input
   for (;;) {
     await Deno.stdout.write(promptString);
     const line = await tpr.readLine();
     if (!line || line.length <= 0) {
+      // Quit
       console.log('='.repeat(30));
       console.log('Bye!');
       Deno.exit(0);
     }
     if (line.length !== 7) {
+      // Rough validation
       console.warn('Invalid postcode.');
       continue;
     }
     const d = codeList[Number(line)];
     if (!d) {
+      // On notfound
       console.warn('No such postcode!');
       continue;
     }
+
     console.log(`Prefecture: ${d.pref}, City: ${d.city}, Address: ${d.addr}`);
   }
 }
 
-
-/** CLI **/
+/** MAIN **/
 
 await prepare();
 await interact();
