@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  loc-by-postcode:
+    image: registry.gitlab.com/clvs7/deno-my-playground/loc-by-postcode:latest
+    #image: docker.pkg.github.com/clvs7-gh/deno-my-playground/loc-by-postcode:latest
+    #build: ./
+    environment:
+      - LBP_ZIP_URL=https://www.post.japanpost.jp/zipcode/dl/kogaki/zip/ken_all.zip
+    user: 1000:1000
+    tty: true
+    stdin_open: true
+    init: true

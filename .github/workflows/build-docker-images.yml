@@ -38,4 +38,14 @@ jobs:
         tag_with_ref: true
         always_pull: true
         push: true
-
+    - name: Build & Push loc-by-postcode
+      uses: docker/build-push-action@v1
+      with:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+        registry: docker.pkg.github.com
+        repository: ${{ steps.repository_path.outputs.info }}/loc-by-postcode
+        path: ./simple-api
+        tag_with_ref: true
+        always_pull: true
+        push: true

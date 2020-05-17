@@ -25,3 +25,12 @@ build_simple-api:
     - export IMAGE_NAME_REF=$CI_REGISTRY_IMAGE/$TARGET:$CI_COMMIT_REF_NAME
     - docker build --pull --tag $IMAGE_NAME_LATEST --tag $IMAGE_NAME_REF ./$TARGET
     - docker push $IMAGE_NAME_LATEST && docker push $IMAGE_NAME_REF
+
+build_loc-by-postcode:
+  stage: build
+  script:
+    - export TARGET=loc-by-postcode
+    - export IMAGE_NAME_LATEST=$CI_REGISTRY_IMAGE/$TARGET:latest
+    - export IMAGE_NAME_REF=$CI_REGISTRY_IMAGE/$TARGET:$CI_COMMIT_REF_NAME
+    - docker build --pull --tag $IMAGE_NAME_LATEST --tag $IMAGE_NAME_REF ./$TARGET
+    - docker push $IMAGE_NAME_LATEST && docker push $IMAGE_NAME_REF
