@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 const zip = new (require('./jszip.min'))();
 const encoding = require('./encoding.min');
 
-const ZIP_URL: string = Deno.env.get('LBP_ZIP_URL') || '';
+const ZIP_URL: string = Deno.env.get('LBP_ZIP_URL') ?? '';
 if (!ZIP_URL) {
   throw 'Please specify zip url.';
 }
