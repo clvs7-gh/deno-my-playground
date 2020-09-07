@@ -2,7 +2,7 @@ FROM frolvlad/alpine-glibc:latest
 
 ENV DENO_INSTALL /usr/local
 ENV DENO_DIR /tmp/.cache
-ENV DENO_VERSION v1.1.2
+ENV DENO_VERSION v1.3.3
 
 RUN set -ex && \
     apk add --no-cache unzip curl && \
