@@ -2,7 +2,7 @@ FROM frolvlad/alpine-glibc:latest
 
 ENV DENO_INSTALL /usr/local
 ENV DENO_DIR /tmp/.cache
-ENV DENO_VERSION v1.4.1
+ENV DENO_VERSION v1.4.6
 
 RUN set -ex && \
     mkdir /app && \

@@ -32,7 +32,7 @@ async function prepare() {
   // Decode data
   console.log('Parsing CSV ...');
   const csvString = encoding.convert(rawCsvData, { to: 'UNICODE', from: 'SJIS', type: 'string' });
-  const csvList = await parse(csvString, { header: false }) as (string[])[];
+  const csvList = await parse(csvString, { skipFirstRow: false }) as (string[])[];
   console.log('Finalizing ...');
   for (const entry of csvList) {
     codeList[Number(entry[2])] = { pref: entry[6], city: entry[7], addr: entry[8] };
