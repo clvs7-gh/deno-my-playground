@@ -34,7 +34,7 @@ router
     ctx.response.status = Status.OK;
     ctx.response.body = { res: 'Hello, World!' };
   })
-  .get<{ id: string | undefined }>('/d/:id?', waitRandomMs(), async (ctx) => {
+  .get('/d/:id?', waitRandomMs(), async (ctx) => {
     const id = ctx.params?.id;
     const res = `ID: ${id}`;
     const err = id ? void 0 : 'No ID';
